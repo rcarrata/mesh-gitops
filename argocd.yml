@@ -1,0 +1,35 @@
+# Source: cluster-bootstrap/charts/argocd-operator/templates/ArgoCD.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  name: argocd
+  labels:
+    app: argocd
+  namespace: labs-ci-cd
+spec:
+  applicationInstanceLabelKey: rht-labs.com/uj
+  accounts.admin: login, apiKey
+  accounts.alice: apiKey
+  accounts.alice.enabled: "false"
+  dex:
+    config: ""
+    image: quay.io/dexidp/dex
+    openShiftOAuth: true
+    version: "v2.22.0"
+  ha:
+    enabled: false
+  rbac:
+    defaultPolicy: role:admin
+  initialRepositories: |
+    - name: ubiquitous-journey
+      url: https://github.com/rht-labs/ubiquitous-journey.git
+    - name: rht-labs
+      type: helm
+      url: https://rht-labs.github.io/helm-charts
+  insecure: false
+  server:
+    route:
+      enabled: true
+  statusBadgeEnabled: true
+  usersAnonymousEnabled: true
+  version: "v1.6.0"
