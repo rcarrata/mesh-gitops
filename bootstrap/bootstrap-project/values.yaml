@@ -1,8 +1,11 @@
+argocd_namespace: &argocd "argocd"
 ci_cd_namespace: &cicd "cicd"
 istio_namespace: &istio "istio-system"
 apps_istio_namespace: &apps_istio "istio-tutorial"
 example_istio_namespace: &example_istio "bookinfo"
 namespaces:
+- name: *argocd
+  namespace: *argocd
 - name: *cicd
   bindings:
   - name: gitops-sa

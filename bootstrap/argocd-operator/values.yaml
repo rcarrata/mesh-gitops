@@ -3,7 +3,7 @@
 enabled: true
 
 name: argocd
-namespace: cicd
+namespace: argocd
 instancelabel: gitops-argocd
 
 # operator manages upgrades etc
@@ -33,10 +33,10 @@ server:
 
 # See here for private repos
 # https://argocd-operator.readthedocs.io/en/v0.0.8/reference/argocd/#initial-repositories-example
-initialRepositories: |
-  - name: gitops-charts
-    type: git
-    url: https://github.com/rcarrata/mesh-gitops
+#initialRepositories: |
+#  - name: gitops-charts
+#    type: git
+#    url: https://github.com/rcarrata/mesh-gitops
 
 #secrets:
 #  - name: argocd-privaterepo
