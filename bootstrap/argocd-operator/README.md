@@ -20,3 +20,7 @@ The following table lists the configurable parameters of the ArgoCD chart and th
 | `namespace`                                      | Project name to deploy DevEx tools                           | `cicd`                          |
 | `name`                                           | Project name for argocd server                               | `argocd`                         |
 | `instancelabel`                                  | Unique identifier for argocd default label                   | `rcarrata-argo`     |
+
+## Kudos
+
+This is a forked and customized helm chart, the original one is in https://github.com/rht-labs/helm-charts maintained by the fine folks of the rht-labs
