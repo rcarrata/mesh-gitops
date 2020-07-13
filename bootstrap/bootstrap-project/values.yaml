@@ -1,0 +1,21 @@
+ci_cd_namespace: &cicd "cicd"
+istio_namespace: &istio "istio-system"
+apps_istio_namespace: &apps_istio "istio-tutorial"
+example_istio_namespace: &example_istio "bookinfo"
+namespaces:
+- name: *cicd
+  bindings:
+  - name: gitops-sa
+    kind: ServiceAccount
+    role: admin
+  namespace: *cicd
+- name: *istio
+  namespace: *istio
+- name: *apps_istio
+  namespace: *apps_istio
+- name: *example_istio
+  namespace: *example_istio
+
+serviceaccounts:
+- name: gitops-sa
+  namespace: *cicd

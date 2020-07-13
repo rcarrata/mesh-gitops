@@ -1,0 +1,51 @@
+---
+# control used by Rcarrata GitOps purposes
+enabled: true
+
+name: argocd
+namespace: cicd
+instancelabel: gitops-argocd
+
+# operator manages upgrades etc
+version: v1.6.0
+operator:
+  version: argocd-operator.v0.0.11
+  channel: alpha
+  name: argocd-operator
+  operatorgroup: true
+
+# https://argocd-operator.readthedocs.io/en/latest/reference/argocd/
+metrics:
+  enabled: false
+  prometheus:
+    version: prometheusoperator.0.32.0
+    channel: beta
+    name: prometheus-operator
+ha:
+  enabled: false
+
+rbac:
+  defaultPolicy: role:admin
+
+server:
+  route:
+    enabled: true
+
+# See here for private repos
+# https://argocd-operator.readthedocs.io/en/v0.0.8/reference/argocd/#initial-repositories-example
+initialRepositories: |
+  - name: gitops-charts
+    type: git
+    url: https://github.com/rcarrata/mesh-gitops
+
+#secrets:
+#  - name: argocd-privaterepo
+#    username: ""
+#    password: ""
+#    sshPrivateKey: ""
+
+# examples
+accounts:
+  accounts.admin: login, apiKey
+  accounts.alice: apiKey
+  accounts.alice.enabled: "false"

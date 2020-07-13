@@ -1,0 +1,10 @@
+{{- if .Values.namespaces }}
+{{- range $key := .Values.namespaces }}
+{{ $ns:= printf "%s" .name}}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $ns | quote}}
+{{- end }}
+{{- end }}

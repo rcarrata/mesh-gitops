@@ -1,0 +1,54 @@
+{{- if .Values.enabled }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  applicationInstanceLabelKey: {{ .Values.instancelabel }}
+  {{- if .Values.accounts }}
+  {{- .Values.accounts | toYaml | trim | nindent 2 }}
+  {{- end }}
+  dex:
+    config: ""
+    image: quay.io/dexidp/dex
+    openShiftOAuth: true
+    version: "v2.22.0"
+  ha:
+    enabled: {{ .Values.ha.enabled }}
+  grafana:
+{{- if .Values.metrics.enabled }}
+    enabled: true
+{{- else }}
+    enabled: false
+{{- end }}
+    route:
+      enabled: true
+  prometheus:
+{{- if .Values.metrics.enabled }}
+    enabled: true
+{{- else }}
+    enabled: false
+{{- end }}
+    route:
+      enabled: true
+  {{- with .Values.rbac }}
+  rbac:
+    {{- . | toYaml | trim | nindent 4 }}
+  {{- end }}
+  {{- with .Values.initialRepositories }}
+  initialRepositories: |
+   {{- . | toYaml | trim | nindent 4 }}
+  {{- end }}
+  insecure: false
+  {{- with .Values.server }}
+  server:
+    {{- . | toYaml | trim | nindent 4 }}
+  {{- end }}
+  statusBadgeEnabled: true
+  usersAnonymousEnabled: false
+  version: {{ .Values.version | quote }}
+{{- end }}
