@@ -44,6 +44,15 @@ applications:
   no_helm: true
   #values: *front_end_values
 
+- name: mesh-controlplane
+  enabled: true
+  source: https://github.com/rcarrata/mesh-gitops.git
+  source_path: mesh-controlplane
+  sync_policy_automated: true
+  destination: argocd
+  source_ref: master
+  no_helm: true
+
 #- name: pet-battle-api
 #  enabled: true
 #  source: https://github.com/eformat/pet-battle-api.git
